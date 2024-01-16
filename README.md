@@ -1,4 +1,4 @@
-# Project Title: React and Flask Token Authentication with Profile
+# Project Title: React and Flask Token Authentication with Profile (PLEASE MAKE SURE YOU ARE IN THE "MASTER" BRANCH)
 
 ## Overview
 
