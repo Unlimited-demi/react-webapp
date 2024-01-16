@@ -1,70 +1,155 @@
-# Getting Started with Create React App
+# Project Title: React and Flask Token Authentication with Profile
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+This project demonstrates a web application with user authentication implemented using React for the frontend and Flask for the backend. Token-based authentication is achieved using Flask-JWT-Extended, and user data is stored in a SQLAlchemy database.
 
-In the project directory, you can run:
+## Setup
 
-### `npm start`
+### Backend (Flask)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Create a virtual environment:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    ```bash
+    py -3 -m venv venv
+    ```
 
-### `npm test`
+2. Activate the virtual environment:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    ```bash
+    venv\Scripts\activate
+    ```
 
-### `npm run build`
+3. Install dependencies:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. Run the Flask application:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    ```bash
+    flask run
+    ```
 
-### `npm run eject`
+### Frontend (React)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Create a React app:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    ```bash
+    npx create-react-app myreactdev
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Install React Router Dom:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    ```bash
+    npm install react-router-dom --save
+    ```
 
-## Learn More
+3. Install Axios:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    ```bash
+    npm install axios --save
+    ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. Run the React app:
 
-### Code Splitting
+    ```bash
+    cd myreactdev
+    npm start
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Backend Structure
 
-### Analyzing the Bundle Size
+- **app.py**: Flask application with routes for login, signup, profile retrieval, and logout.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **models.py**: SQLAlchemy models for user data.
 
-### Making a Progressive Web App
+## Frontend Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **App.js**: Main React component with routing logic, including login, header, profile, register, and reset password components.
 
-### Advanced Configuration
+- **Login.js**: Component handling user login with Axios for API requests.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **Header.js**: Header component for navigation and logout functionality.
 
-### Deployment
+- **useToken.js**: Custom hook for handling authentication token.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **Profile.js**: Component for displaying user profile information.
 
-### `npm run build` fails to minify
+- **Register.js**: Component for user registration.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **ResetPassword.js**: Component for resetting user password.
+
+## API Endpoints
+
+- **/logintoken (POST)**: User login endpoint, returns an access token.
+
+- **/signup (POST)**: User registration endpoint.
+
+- **/profile/<getemail> (GET)**: Retrieves user profile data. Requires a valid access token.
+
+- **/logout (POST)**: Logs the user out by unsetting the JWT cookies.
+
+## Usage
+
+1. Run the Flask backend.
+
+2. Run the React frontend.
+
+3. Access the application at [http://localhost:3000](http://localhost:3000).
+
+4. Use the provided Postman examples for testing login, signup, profile retrieval, and logout.
+
+## Postman Examples
+
+### Login
+
+- **POST**: [http://127.0.0.1:5000/logintoken](http://127.0.0.1:5000/logintoken)
+- Body (JSON):
+  ```json
+  {
+    "email": "unlimiteddemi@gmail.com",
+    "password": "your_password"
+  }
+  ```
+
+### Signup
+
+- **POST**: [http://127.0.0.1:5000/signup](http://127.0.0.1:5000/signup)
+- Body (JSON):
+  ```json
+  {
+    "email": "unlimiteddemi@gmail.com",
+    "password": "your_password"
+  }
+  ```
+
+### Profile
+
+- **GET**: [http://127.0.0.1:5000/profile/unlimiteddemi@gmail.com](http://127.0.0.1:5000/profile/unlimiteddemi@gmail.com)
+- Headers:
+  - Key: Authorization
+  - Value: Bearer <your_access_token>
+
+### Logout
+
+- **POST**: [http://127.0.0.1:5000/logout](http://127.0.0.1:5000/logout)
+
+## Dependencies
+
+- Flask
+- Flask-JWT-Extended
+- Flask-Bcrypt
+- Flask-SQLAlchemy
+- Flask-Cors
+- React
+- React Router Dom
+- Axios
+
+## Author
+
+- Daniel Owen
+
+For any inquiries, contact unlimiteddemi@gmail.com.
+
